@@ -28,7 +28,9 @@ class AppFixtures extends Fixture
     {
         $dir_images = __DIR__. '/../../public/img/img_sorties';
         $dir_upload= __DIR__. '/../../public/uploads';
-        @mkdir($dir_upload,);
+        if (!mkdir($dir_upload) && !is_dir($dir_upload)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir_upload));
+        }
         @copy($dir_images.'/cinema1.gif', $dir_upload.'/cinema1.gif');
         @copy($dir_images.'/concert1.gif', $dir_upload.'/concert1.gif');
         @copy($dir_images.'/piscine1.gif', $dir_upload.'/piscine1.gif');
